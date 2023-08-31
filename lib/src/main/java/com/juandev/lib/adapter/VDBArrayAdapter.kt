@@ -12,7 +12,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import timber.log.Timber
 
-open class ViewDataBindingArrayAdapter<VM : Any, VDB : ViewDataBinding>(
+open class VDBArrayAdapter<VM : Any, VDB : ViewDataBinding>(
     context: Context,
     val variableId: Int,
     @LayoutRes val layoutId: Int,

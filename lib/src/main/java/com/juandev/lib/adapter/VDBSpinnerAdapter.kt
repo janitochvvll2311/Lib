@@ -11,14 +11,14 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import timber.log.Timber
 
-open class ViewDataBindingSpinnerAdapter<VM : Any, VDB : ViewDataBinding, DDVDB : ViewDataBinding>(
+open class VDBSpinnerAdapter<VM : Any, VDB : ViewDataBinding, DDVDB : ViewDataBinding>(
     context: Context,
     variableId: Int,
     @LayoutRes layoutId: Int,
     onBindListener: (Adapter.(binding: VDB, item: VM, index: Int) -> Unit)? = null,
     @LayoutRes val dropDownLayoutId: Int,
     var onBindDropDownListener: (Adapter.(binding: DDVDB, viewModel: VM, index: Int) -> Unit)? = null,
-) : ViewDataBindingArrayAdapter<VM, VDB>(context, variableId, layoutId, onBindListener) {
+) : VDBArrayAdapter<VM, VDB>(context, variableId, layoutId, onBindListener) {
 
     private val bindings = mutableMapOf<Int, DDVDB>()
 
