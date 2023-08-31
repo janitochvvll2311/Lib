@@ -5,17 +5,18 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.LifecycleOwner
+import com.juandev.lib.DialogDisplayComponent
 import com.juandev.lib.ViewDataBindingComponent
 import timber.log.Timber
 
 open class ViewDataBindingActivity<VDB : ViewDataBinding>(
     @LayoutRes final override val layoutId: Int
-) : AppCompatActivity(), ViewDataBindingComponent<VDB> {
+) : AppCompatActivity(), ViewDataBindingComponent<VDB>, DialogDisplayComponent {
 
     private lateinit var mbinding: VDB
     final override val binding: VDB get() = mbinding
     final override val lifecycleOwner get() = this
+    final override val dialogFragmentManager get() = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

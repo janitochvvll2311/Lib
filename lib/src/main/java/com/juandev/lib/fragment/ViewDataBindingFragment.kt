@@ -8,16 +8,18 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import com.juandev.lib.DialogDisplayComponent
 import com.juandev.lib.ViewDataBindingComponent
 import timber.log.Timber
 
 open class ViewDataBindingFragment<VDB : ViewDataBinding>(
     @LayoutRes final override val layoutId: Int
-) : Fragment(), ViewDataBindingComponent<VDB> {
+) : Fragment(), ViewDataBindingComponent<VDB>, DialogDisplayComponent {
 
     private lateinit var mbinding: VDB
     final override val binding: VDB get() = mbinding
     final override val lifecycleOwner get() = viewLifecycleOwner
+    final override val dialogFragmentManager get() = childFragmentManager
 
     override fun onCreateView(
         inflater: LayoutInflater,

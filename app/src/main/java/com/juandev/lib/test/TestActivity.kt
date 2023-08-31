@@ -2,6 +2,7 @@ package com.juandev.lib.test
 
 import android.os.Bundle
 import com.juandev.lib.activity.ViewModelActivity
+import com.juandev.lib.showDialog
 import com.juandev.lib.test.databinding.TestActivityLayoutBinding
 import timber.log.Timber
 
@@ -14,6 +15,9 @@ class TestActivity : ViewModelActivity<TestViewModel, TestActivityLayoutBinding>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.d("TestActivity_TAG: onCreate")
+        binding.btn.setOnClickListener {
+            showDialog(TestDialogFragment())
+        }
         viewModel.value.postValue("Test Value")
     }
 
