@@ -21,12 +21,28 @@ class TestFragment : VDBFragment<TestViewModel, TestFragmentLayoutBinding>(
 
     override val viewModel get() = TestActivity.viewModel
 
-    private val itemsAdapter by lazy {
+    private val itemsLVAdapter by lazy {
         VDBArrayAdapter<TestItem, TestItemLayoutBinding>(
             requireContext(),
             BR.viewModel,
             R.layout.test_item_layout
-        )
+        ) { binding, item, index ->
+            binding.root.setOnClickListener {
+                (it.parent as AdapterView<*>).performItemClick(it, index, 0)
+            }
+        }
+    }
+
+    private val itemsATVAdapter by lazy {
+        VDBArrayAdapter<TestItem, TestItemLayoutBinding>(
+            requireContext(),
+            BR.viewModel,
+            R.layout.test_item_layout
+        ) { binding, item, index ->
+            binding.root.setOnClickListener {
+                (it.parent as AdapterView<*>).performItemClick(it, index, 0)
+            }
+        }
     }
 
     private val itemsSpinnerAdapter by lazy {
@@ -35,9 +51,12 @@ class TestFragment : VDBFragment<TestViewModel, TestFragmentLayoutBinding>(
             BR.viewModel,
             R.layout.test_item_layout,
             null,
-            R.layout.test_item_layout,
-            null
-        )
+            R.layout.test_item_layout
+        ) { binding, item, index ->
+            binding.root.setOnClickListener {
+                (it.parent as AdapterView<*>).performItemClick(it, index, 0)
+            }
+        }
     }
 
     private val itemsRVAdapter by lazy {
@@ -61,9 +80,9 @@ class TestFragment : VDBFragment<TestViewModel, TestFragmentLayoutBinding>(
         binding.apply {
             val viewModel = viewModel!!
             lv.setOnItemClickListener { adapterView, view, i, l ->
-                val item = itemsAdapter.getItem(i) as TestItem
+                val item = adapterView.getItemAtPosition(i) as TestItem
                 item.value = "CHANGED"
-                itemsAdapter.notifyDataSetChanged()
+                itemsLVAdapter.notifyDataSetChanged()
             }
             atv.setOnItemClickListener { adapterView, view, i, l ->
                 val item = adapterView.getItemAtPosition(i) as TestItem
@@ -76,8 +95,10 @@ class TestFragment : VDBFragment<TestViewModel, TestFragmentLayoutBinding>(
         }
         viewModel.apply {
             items.observe(lifecycleOwner) { items ->
-                itemsAdapter.clear()
-                itemsAdapter.addAll(items)
+                itemsLVAdapter.clear()
+                itemsLVAdapter.addAll(items)
+                itemsATVAdapter.clear()
+                itemsATVAdapter.addAll(items)
                 itemsSpinnerAdapter.clear()
                 itemsSpinnerAdapter.addAll(items)
                 itemsRVAdapter.items = items
@@ -90,8 +111,8 @@ class TestFragment : VDBFragment<TestViewModel, TestFragmentLayoutBinding>(
         container: ViewGroup?
     ) = super.onBinding(inflater, container).apply {
         Timber.d("TestFragment_TAG: onBinding")
-        lv.adapter = itemsAdapter
-        atv.setAdapter(itemsAdapter)
+        lv.adapter = itemsLVAdapter
+        atv.setAdapter(itemsATVAdapter)
         spn.adapter = itemsSpinnerAdapter
         rv.adapter = itemsRVAdapter
     }
