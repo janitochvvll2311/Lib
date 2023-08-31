@@ -6,13 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.juandev.lib.DialogDisplayComponent
-import com.juandev.lib.ViewDataBindingComponent
+import com.juandev.lib.VDBComponent
 import timber.log.Timber
 
 abstract class VDBActivity<VM : Any, VDB : ViewDataBinding>(
     @LayoutRes final override val variableId: Int,
     @LayoutRes final override val layoutId: Int
-) : AppCompatActivity(), ViewDataBindingComponent<VM, VDB>, DialogDisplayComponent {
+) : AppCompatActivity(), VDBComponent<VM, VDB>, DialogDisplayComponent {
 
     final override val lifecycleOwner get() = this
 

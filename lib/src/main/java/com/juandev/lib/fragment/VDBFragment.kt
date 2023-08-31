@@ -9,13 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.juandev.lib.DialogDisplayComponent
-import com.juandev.lib.ViewDataBindingComponent
+import com.juandev.lib.VDBComponent
 import timber.log.Timber
 
 abstract class VDBFragment<VM : Any, VDB : ViewDataBinding>(
     final override val variableId: Int,
     @LayoutRes final override val layoutId: Int
-) : Fragment(), ViewDataBindingComponent<VM, VDB>, DialogDisplayComponent {
+) : Fragment(), VDBComponent<VM, VDB>, DialogDisplayComponent {
 
     final override val lifecycleOwner get() = viewLifecycleOwner
 
