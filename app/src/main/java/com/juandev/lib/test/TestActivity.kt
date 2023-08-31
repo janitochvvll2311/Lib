@@ -1,9 +1,6 @@
 package com.juandev.lib.test
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import com.juandev.lib.activity.ViewModelActivity
 import com.juandev.lib.test.databinding.TestActivityLayoutBinding
 import timber.log.Timber

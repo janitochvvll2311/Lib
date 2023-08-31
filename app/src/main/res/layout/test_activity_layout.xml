@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -15,11 +16,32 @@
         android:background="@color/white">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@{viewModel.value}"
             android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="A Value" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fcv"
+            android:name="com.juandev.lib.test.TestFragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/btn"
+            app:layout_constraintTop_toBottomOf="@id/tv"
+            tools:layout="@layout/test_fragment_layout" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.value}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             tools:text="A Value" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
