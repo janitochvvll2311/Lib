@@ -5,15 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import com.juandev.lib.adapter.ViewModelArrayAdapter
-import com.juandev.lib.adapter.ViewModelSpinnerAdapter
-import com.juandev.lib.fragment.ViewModelFragment
-import com.juandev.lib.showDialog
+import com.juandev.lib.adapter.ViewDataBindingArrayAdapter
+import com.juandev.lib.adapter.ViewDataBindingSpinnerAdapter
+import com.juandev.lib.fragment.ViewDataBindingFragment
 import com.juandev.lib.test.databinding.TestFragmentLayoutBinding
 import com.juandev.lib.test.databinding.TestItemLayoutBinding
 import timber.log.Timber
 
-class TestFragment : ViewModelFragment<TestViewModel, TestFragmentLayoutBinding>(
+class TestFragment : ViewDataBindingFragment<TestViewModel, TestFragmentLayoutBinding>(
     BR.viewModel,
     R.layout.test_fragment_layout
 ) {
@@ -21,7 +20,7 @@ class TestFragment : ViewModelFragment<TestViewModel, TestFragmentLayoutBinding>
     override val viewModel get() = TestActivity.viewModel
 
     private val itemsAdapter by lazy {
-        ViewModelArrayAdapter<TestItem, TestItemLayoutBinding>(
+        ViewDataBindingArrayAdapter<TestItem, TestItemLayoutBinding>(
             requireContext(),
             BR.viewModel,
             R.layout.test_item_layout
@@ -29,7 +28,7 @@ class TestFragment : ViewModelFragment<TestViewModel, TestFragmentLayoutBinding>
     }
 
     private val itemsSpinnerAdapter by lazy {
-        ViewModelSpinnerAdapter<TestItem, TestItemLayoutBinding, TestItemLayoutBinding>(
+        ViewDataBindingSpinnerAdapter<TestItem, TestItemLayoutBinding, TestItemLayoutBinding>(
             requireContext(),
             BR.viewModel,
             R.layout.test_item_layout,

@@ -11,25 +11,27 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import timber.log.Timber
 
-open class ViewDataBindingSpinnerAdapter<IT : Any, VDB : ViewDataBinding, DDVDB : ViewDataBinding>(
+open class ViewDataBindingSpinnerAdapter<VM : Any, VDB : ViewDataBinding, DDVDB : ViewDataBinding>(
     context: Context,
+    variableId: Int,
     @LayoutRes layoutId: Int,
-    onBindListener: (Adapter.(binding: VDB, item: IT, index: Int) -> Unit)? = null,
-    @LayoutRes dropDownLayoutId: Int,
-    var onBindDropDownListener: (Adapter.(binding: DDVDB, item: IT, index: Int) -> Unit)? = null,
-) : ViewDataBindingArrayAdapter<IT, VDB>(context, layoutId, onBindListener) {
+    onBindListener: (Adapter.(binding: VDB, item: VM, index: Int) -> Unit)? = null,
+    @LayoutRes val dropDownLayoutId: Int,
+    var onBindDropDownListener: (Adapter.(binding: DDVDB, viewModel: VM, index: Int) -> Unit)? = null,
+) : ViewDataBindingArrayAdapter<VM, VDB>(context, variableId, layoutId, onBindListener) {
 
     private val bindings = mutableMapOf<Int, DDVDB>()
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
         Timber.d("ViewDataBindingSpinnerAdapter_TAG: getDropDownView")
+        val viewModel = getItem(position) as VM
         var binding = bindings[position]
         if (binding == null) {
             binding = onBindingDropDown(parent)
             bindings[position] = binding
         }
-        val item = getItem(position) as IT
-        onBindDropDown(binding, item, position)
+        onBindDropDownListener?.invoke(this, binding, viewModel, position)
+        binding.setVariable(variableId, viewModel)
         return binding.root
     }
 
@@ -37,17 +39,12 @@ open class ViewDataBindingSpinnerAdapter<IT : Any, VDB : ViewDataBinding, DDVDB 
         Timber.d("ViewDataBindingSpinnerAdapter_TAG: onBindingDropDown")
         val binding = DataBindingUtil.inflate<DDVDB>(
             LayoutInflater.from(context),
-            layoutId,
+            dropDownLayoutId,
             parent,
             false
         )
         binding.lifecycleOwner = parent.findViewTreeLifecycleOwner()
         return binding
-    }
-
-    protected open fun onBindDropDown(binding: DDVDB, item: IT, index: Int) {
-        Timber.d("ViewDataBindingSpinnerAdapter_TAG: onBindDropDown")
-        onBindDropDownListener?.invoke(this, binding, item, index)
     }
 
 }

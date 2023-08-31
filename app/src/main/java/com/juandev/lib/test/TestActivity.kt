@@ -1,13 +1,12 @@
 package com.juandev.lib.test
 
 import android.os.Bundle
-import com.juandev.lib.activity.ViewModelActivity
-import com.juandev.lib.showDialog
+import com.juandev.lib.activity.ViewDataBindingActivity
 import com.juandev.lib.test.databinding.TestActivityLayoutBinding
 import timber.log.Timber
 import kotlin.random.Random
 
-class TestActivity : ViewModelActivity<TestViewModel, TestActivityLayoutBinding>(
+class TestActivity : ViewDataBindingActivity<TestViewModel, TestActivityLayoutBinding>(
     BR.viewModel, R.layout.test_activity_layout
 ) {
 

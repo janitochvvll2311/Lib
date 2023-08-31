@@ -12,13 +12,16 @@ import com.juandev.lib.DialogDisplayComponent
 import com.juandev.lib.ViewDataBindingComponent
 import timber.log.Timber
 
-open class ViewDataBindingFragment<VDB : ViewDataBinding>(
+abstract class ViewDataBindingFragment<VM : Any, VDB : ViewDataBinding>(
+    final override val variableId: Int,
     @LayoutRes final override val layoutId: Int
-) : Fragment(), ViewDataBindingComponent<VDB>, DialogDisplayComponent {
+) : Fragment(), ViewDataBindingComponent<VM, VDB>, DialogDisplayComponent {
+
+    final override val lifecycleOwner get() = viewLifecycleOwner
 
     private lateinit var mbinding: VDB
     final override val binding: VDB get() = mbinding
-    final override val lifecycleOwner get() = viewLifecycleOwner
+
     final override val dialogFragmentManager get() = childFragmentManager
 
     override fun onCreateView(
@@ -29,6 +32,7 @@ open class ViewDataBindingFragment<VDB : ViewDataBinding>(
         super.onCreateView(inflater, container, savedInstanceState)
         Timber.d("ViewDataBindingFragment_TAG: onCreateView")
         mbinding = onBinding(inflater, container)
+        binding.setVariable(variableId, viewModel)
         return mbinding.root
     }
 
