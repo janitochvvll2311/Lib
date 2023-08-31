@@ -15,7 +15,7 @@ import timber.log.Timber
 open class ViewDataBindingArrayAdapter<IT : Any, VDB : ViewDataBinding>(
     context: Context,
     @LayoutRes val layoutId: Int,
-    val onBindListener: (Adapter.(binding: VDB, item: IT, index: Int) -> Unit)? = null
+    var onBindListener: (Adapter.(binding: VDB, item: IT, index: Int) -> Unit)? = null
 ) : ArrayAdapter<IT>(context, 0) {
 
     private val bindings = mutableMapOf<Int, VDB>()

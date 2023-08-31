@@ -1,8 +1,6 @@
 package com.juandev.lib.adapter
 
 import android.content.Context
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Adapter
 import androidx.annotation.LayoutRes
 import androidx.databinding.ViewDataBinding
@@ -16,9 +14,9 @@ class ViewModelArrayAdapter<VM : Any, VDB : ViewDataBinding>(
 ) : ViewDataBindingArrayAdapter<VM, VDB>(context, layoutId, onBindListener) {
 
     override fun onBind(binding: VDB, item: VM, index: Int) {
+        super.onBind(binding, item, index)
         Timber.d("ViewModelArrayAdapter_TAG: onBind")
         binding.setVariable(variableId, item)
-        super.onBind(binding, item, index)
     }
 
 }

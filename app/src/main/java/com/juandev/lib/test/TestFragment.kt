@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import com.juandev.lib.adapter.ViewModelArrayAdapter
+import com.juandev.lib.adapter.ViewModelSpinnerAdapter
 import com.juandev.lib.fragment.ViewModelFragment
 import com.juandev.lib.showDialog
 import com.juandev.lib.test.databinding.TestFragmentLayoutBinding
@@ -24,6 +25,17 @@ class TestFragment : ViewModelFragment<TestViewModel, TestFragmentLayoutBinding>
             requireContext(),
             BR.viewModel,
             R.layout.test_item_layout
+        )
+    }
+
+    private val itemsSpinnerAdapter by lazy {
+        ViewModelSpinnerAdapter<TestItem, TestItemLayoutBinding, TestItemLayoutBinding>(
+            requireContext(),
+            BR.viewModel,
+            R.layout.test_item_layout,
+            null,
+            R.layout.test_item_layout,
+            null
         )
     }
 
@@ -64,6 +76,8 @@ class TestFragment : ViewModelFragment<TestViewModel, TestFragmentLayoutBinding>
             items.observe(lifecycleOwner) { items ->
                 itemsAdapter.clear()
                 itemsAdapter.addAll(items)
+                itemsSpinnerAdapter.clear()
+                itemsSpinnerAdapter.addAll(items)
             }
         }
     }
@@ -75,7 +89,7 @@ class TestFragment : ViewModelFragment<TestViewModel, TestFragmentLayoutBinding>
         Timber.d("TestFragment_TAG: onBinding")
         lv.adapter = itemsAdapter
         atv.setAdapter(itemsAdapter)
-        // spn.adapter = itemsAdapter
+        spn.adapter = itemsSpinnerAdapter
     }
 
 }
