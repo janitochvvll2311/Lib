@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import com.juandev.lib.adapter.VDBArrayAdapter
+import com.juandev.lib.adapter.VDBRecyclerViewAdapter
 import com.juandev.lib.adapter.VDBSpinnerAdapter
 import com.juandev.lib.fragment.VDBFragment
 import com.juandev.lib.test.databinding.TestFragmentLayoutBinding
 import com.juandev.lib.test.databinding.TestItemLayoutBinding
+import com.juandev.lib.utils.setOnItemSelectedListener
 import timber.log.Timber
 
 class TestFragment : VDBFragment<TestViewModel, TestFragmentLayoutBinding>(
@@ -38,6 +40,18 @@ class TestFragment : VDBFragment<TestViewModel, TestFragmentLayoutBinding>(
         )
     }
 
+    private val itemsRVAdapter by lazy {
+        VDBRecyclerViewAdapter<TestItem, TestItemLayoutBinding>(
+            BR.viewModel,
+            R.layout.test_item_layout
+        ) { binding, item, index ->
+            binding.root.setOnClickListener {
+                item.value = "CHANGED"
+                notifyItemChanged(index)
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -55,20 +69,9 @@ class TestFragment : VDBFragment<TestViewModel, TestFragmentLayoutBinding>(
                 val item = adapterView.getItemAtPosition(i) as TestItem
                 viewModel.value.postValue(item.value)
             }
-            spn.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    adapterView: AdapterView<*>?,
-                    view: View?,
-                    i: Int,
-                    l: Long
-                ) {
-                    adapterView?.run {
-                        val item = getItemAtPosition(i) as TestItem
-                        viewModel.value.postValue(item.value)
-                    }
-                }
-
-                override fun onNothingSelected(adapterView: AdapterView<*>?) {}
+            spn.setOnItemSelectedListener { adapterView, view, i, l ->
+                val item = adapterView.getItemAtPosition(i) as TestItem
+                viewModel.value.postValue(item.value)
             }
         }
         viewModel.apply {
@@ -77,6 +80,7 @@ class TestFragment : VDBFragment<TestViewModel, TestFragmentLayoutBinding>(
                 itemsAdapter.addAll(items)
                 itemsSpinnerAdapter.clear()
                 itemsSpinnerAdapter.addAll(items)
+                itemsRVAdapter.items = items
             }
         }
     }
@@ -89,6 +93,7 @@ class TestFragment : VDBFragment<TestViewModel, TestFragmentLayoutBinding>(
         lv.adapter = itemsAdapter
         atv.setAdapter(itemsAdapter)
         spn.adapter = itemsSpinnerAdapter
+        rv.adapter = itemsRVAdapter
     }
 
 }

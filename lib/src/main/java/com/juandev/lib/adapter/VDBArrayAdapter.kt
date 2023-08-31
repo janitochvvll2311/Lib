@@ -46,4 +46,12 @@ open class VDBArrayAdapter<VM : Any, VDB : ViewDataBinding>(
         return binding
     }
 
+    override fun notifyDataSetChanged() {
+        super.notifyDataSetChanged()
+        Timber.d("VDBArrayAdapter_TAG: notifyDataSetChanged")
+        while (bindings.size > count) {
+            bindings.remove(bindings.size - 1)
+        }
+    }
+
 }

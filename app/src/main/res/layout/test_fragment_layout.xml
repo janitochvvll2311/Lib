@@ -37,8 +37,16 @@
             android:id="@+id/spn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:completionThreshold="1"
             android:popupBackground="#AAAAFF"
+            tools:listitem="@layout/test_item_layout" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="5"
             tools:listitem="@layout/test_item_layout" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
