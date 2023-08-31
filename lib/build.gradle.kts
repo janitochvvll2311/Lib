@@ -48,4 +48,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("com.jakewharton.timber:timber:5.0.1")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
+
 }

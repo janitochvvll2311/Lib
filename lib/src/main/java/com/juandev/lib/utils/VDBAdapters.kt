@@ -4,6 +4,7 @@ import android.widget.AdapterView
 import android.widget.AutoCompleteTextView
 import android.widget.ListView
 import androidx.appcompat.widget.AppCompatSpinner
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.juandev.lib.adapter.VDBItemsAdapter
@@ -48,3 +49,9 @@ fun <T> RecyclerView.setItems(items: List<T>) {
     }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+@BindingAdapter("value", "holder")
+fun <T> AppCompatTextView.setValue(value: T, holder: String?) {
+    text = value?.toString() ?: holder ?: ""
+}
