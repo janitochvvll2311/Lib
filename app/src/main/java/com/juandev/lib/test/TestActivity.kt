@@ -5,6 +5,7 @@ import com.juandev.lib.activity.ViewModelActivity
 import com.juandev.lib.showDialog
 import com.juandev.lib.test.databinding.TestActivityLayoutBinding
 import timber.log.Timber
+import kotlin.random.Random
 
 class TestActivity : ViewModelActivity<TestViewModel, TestActivityLayoutBinding>(
     BR.viewModel, R.layout.test_activity_layout
@@ -15,10 +16,16 @@ class TestActivity : ViewModelActivity<TestViewModel, TestActivityLayoutBinding>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.d("TestActivity_TAG: onCreate")
+        val random = Random(0);
         binding.btn.setOnClickListener {
-            showDialog(TestDialogFragment())
+            viewModel.run {
+                val content = items.value ?: emptyList()
+                items.postValue(content + TestItem("Value: ${random.nextInt()}"))
+            }
         }
-        viewModel.value.postValue("Test Value")
+        viewModel.apply {
+            value.postValue("Test Value")
+        }
     }
 
     companion object {
