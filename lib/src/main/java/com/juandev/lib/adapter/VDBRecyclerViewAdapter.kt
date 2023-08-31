@@ -14,7 +14,7 @@ open class VDBRecyclerViewAdapter<VM : Any, VDB : ViewDataBinding>(
     val variableId: Int,
     @LayoutRes val layoutId: Int,
     var onBindListener: (RecyclerView.Adapter<*>.(binding: VDB, viewModel: VM, index: Int) -> Unit)? = null
-) : RecyclerView.Adapter<VDBRecyclerViewAdapter<VM, VDB>.ViewHolder>() {
+) : RecyclerView.Adapter<VDBRecyclerViewAdapter<VM, VDB>.ViewHolder>(), VDBItemsAdapter<VM> {
 
     inner class ViewHolder(
         val binding: VDB
@@ -56,6 +56,11 @@ open class VDBRecyclerViewAdapter<VM : Any, VDB : ViewDataBinding>(
         val viewModel = items[position]
         onBindListener?.invoke(this, holder.binding, viewModel, position)
         holder.binding.setVariable(variableId, viewModel)
+    }
+
+    override fun fill(items: List<VM>) {
+        Timber.d("VDBRecyclerViewAdapter_TAG: fill")
+        this.items = items
     }
 
 }

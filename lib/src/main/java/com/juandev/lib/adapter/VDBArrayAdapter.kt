@@ -17,7 +17,7 @@ open class VDBArrayAdapter<VM : Any, VDB : ViewDataBinding>(
     val variableId: Int,
     @LayoutRes val layoutId: Int,
     var onBindListener: (Adapter.(binding: VDB, viewModel: VM, index: Int) -> Unit)? = null
-) : ArrayAdapter<VM>(context, 0) {
+) : ArrayAdapter<VM>(context, 0), VDBItemsAdapter<VM> {
 
     private val bindings = mutableMapOf<Int, VDB>()
 
@@ -52,6 +52,12 @@ open class VDBArrayAdapter<VM : Any, VDB : ViewDataBinding>(
         while (bindings.size > count) {
             bindings.remove(bindings.size - 1)
         }
+    }
+
+    override fun fill(items: List<VM>) {
+        Timber.d("VDBArrayAdapter_TAG: fill")
+        clear()
+        addAll(items)
     }
 
 }

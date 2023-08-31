@@ -95,13 +95,13 @@ class TestFragment : VDBFragment<TestViewModel, TestFragmentLayoutBinding>(
         }
         viewModel.apply {
             items.observe(lifecycleOwner) { items ->
-                itemsLVAdapter.clear()
-                itemsLVAdapter.addAll(items)
-                itemsATVAdapter.clear()
-                itemsATVAdapter.addAll(items)
-                itemsSpinnerAdapter.clear()
-                itemsSpinnerAdapter.addAll(items)
-                itemsRVAdapter.items = items
+                // itemsLVAdapter.clear()
+                // itemsLVAdapter.addAll(items)
+                // itemsATVAdapter.clear()
+                // itemsATVAdapter.addAll(items)
+                // itemsSpinnerAdapter.clear()
+                // itemsSpinnerAdapter.addAll(items)
+                // itemsRVAdapter.items = items
             }
         }
     }

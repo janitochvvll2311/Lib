@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            app:items="@{viewModel.items}"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/test_item_layout" />
 
@@ -31,7 +32,8 @@
             android:completionThreshold="1"
             android:hint="Auto Complete"
             android:textColor="@color/black"
-            android:textColorHint="#888888" />
+            android:textColorHint="#888888"
+            app:items="@{viewModel.items}" />
 
         <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spn"
@@ -39,6 +41,7 @@
             android:layout_height="wrap_content"
             android:padding="0dp"
             android:popupBackground="#AAAAFF"
+            app:items="@{viewModel.items}"
             tools:listitem="@layout/test_item_layout" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -46,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:orientation="vertical"
+            app:items="@{viewModel.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="5"
             tools:listitem="@layout/test_item_layout" />
