@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.ArrayAdapter
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
@@ -14,7 +15,7 @@ import timber.log.Timber
 open class ViewDataBindingArrayAdapter<IT : Any, VDB : ViewDataBinding>(
     context: Context,
     @LayoutRes val layoutId: Int,
-    private val onBind: ViewDataBindingArrayAdapter<IT, VDB>.(binding: VDB, item: IT, index: Int) -> Unit = { _, _, _ -> }
+    val onBindListener: (Adapter.(binding: VDB, item: IT, index: Int) -> Unit)? = null
 ) : ArrayAdapter<IT>(context, 0) {
 
     private val bindings = mutableMapOf<Int, VDB>()
@@ -41,6 +42,11 @@ open class ViewDataBindingArrayAdapter<IT : Any, VDB : ViewDataBinding>(
         )
         binding.lifecycleOwner = parent.findViewTreeLifecycleOwner()
         return binding
+    }
+
+    protected open fun onBind(binding: VDB, item: IT, index: Int) {
+        Timber.d("ViewDataBindingArrayAdapter_TAG: onBind")
+        onBindListener?.invoke(this, binding, item, index)
     }
 
 }

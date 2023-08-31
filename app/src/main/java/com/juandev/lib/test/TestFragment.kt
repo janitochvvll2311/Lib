@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import com.juandev.lib.adapter.ViewModelArrayAdapter
 import com.juandev.lib.fragment.ViewModelFragment
 import com.juandev.lib.showDialog
@@ -43,6 +44,21 @@ class TestFragment : ViewModelFragment<TestViewModel, TestFragmentLayoutBinding>
                 val item = adapterView.getItemAtPosition(i) as TestItem
                 viewModel.value.postValue(item.value)
             }
+            spn.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    adapterView: AdapterView<*>?,
+                    view: View?,
+                    i: Int,
+                    l: Long
+                ) {
+                    adapterView?.run {
+                        val item = getItemAtPosition(i) as TestItem
+                        viewModel.value.postValue(item.value)
+                    }
+                }
+
+                override fun onNothingSelected(adapterView: AdapterView<*>?) {}
+            }
         }
         viewModel.apply {
             items.observe(lifecycleOwner) { items ->
@@ -59,6 +75,7 @@ class TestFragment : ViewModelFragment<TestViewModel, TestFragmentLayoutBinding>
         Timber.d("TestFragment_TAG: onBinding")
         lv.adapter = itemsAdapter
         atv.setAdapter(itemsAdapter)
+        // spn.adapter = itemsAdapter
     }
 
 }

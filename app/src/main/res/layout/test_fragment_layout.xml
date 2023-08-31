@@ -33,5 +33,13 @@
             android:textColor="@color/black"
             android:textColorHint="#888888" />
 
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/spn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="1"
+            android:popupBackground="#AAAAFF"
+            tools:listitem="@layout/test_item_layout" />
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
