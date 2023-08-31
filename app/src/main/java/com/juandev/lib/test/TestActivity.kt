@@ -20,7 +20,13 @@ class TestActivity : ViewModelActivity<TestViewModel, TestActivityLayoutBinding>
         binding.btn.setOnClickListener {
             viewModel.run {
                 val content = items.value ?: emptyList()
-                items.postValue(content + TestItem("Value: ${random.nextInt()}"))
+                items.postValue(
+                    content + TestItem(
+                        "${random.nextInt(0, 9)}" +
+                                "${random.nextInt(0, 9)}" +
+                                "${random.nextInt(0, 9)}"
+                    )
+                )
             }
         }
         viewModel.apply {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -9,17 +10,28 @@
             type="com.juandev.lib.test.TestViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <ListView
             android:id="@+id/lv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/test_item_layout" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/atv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="1"
+            android:hint="Auto Complete"
+            android:textColor="@color/black"
+            android:textColorHint="#888888" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

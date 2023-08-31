@@ -33,10 +33,15 @@ class TestFragment : ViewModelFragment<TestViewModel, TestFragmentLayoutBinding>
     ) = super.onCreateView(inflater, container, savedInstanceState).apply {
         Timber.d("TestFragment_TAG: onCreateView")
         binding.apply {
+            val viewModel = viewModel!!
             lv.setOnItemClickListener { adapterView, view, i, l ->
                 val item = itemsAdapter.getItem(i) as TestItem
                 item.value = "CHANGED"
                 itemsAdapter.notifyDataSetChanged()
+            }
+            atv.setOnItemClickListener { adapterView, view, i, l ->
+                val item = adapterView.getItemAtPosition(i) as TestItem
+                viewModel.value.postValue(item.value)
             }
         }
         viewModel.apply {
@@ -53,6 +58,7 @@ class TestFragment : ViewModelFragment<TestViewModel, TestFragmentLayoutBinding>
     ) = super.onBinding(inflater, container).apply {
         Timber.d("TestFragment_TAG: onBinding")
         lv.adapter = itemsAdapter
+        atv.setAdapter(itemsAdapter)
     }
 
 }
