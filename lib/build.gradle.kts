@@ -7,9 +7,10 @@ plugins {
 android {
     namespace = "com.juandev.lib"
     compileSdk = 33
+    version = "1.0.0"
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 23
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")

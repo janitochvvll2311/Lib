@@ -66,7 +66,7 @@ class TestFragment : VDBFragment<TestViewModel, TestFragmentLayoutBinding>(
         ) { binding, item, index ->
             binding.root.setOnClickListener {
                 item.value = "CHANGED"
-                notifyItemChanged(index)
+                notifyDataSetChanged()
             }
         }
     }
