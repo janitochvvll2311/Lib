@@ -25,6 +25,7 @@ abstract class VDBPopup<VM : Any, VDB : ViewDataBinding>(
         Timber.d("VDBPopup_TAG: onCreateContent")
         lifecycleOwner.onShow()
         mbinding = onBinding()
+        isFocusable = true
     }
 
     protected open fun onBinding(): VDB {
