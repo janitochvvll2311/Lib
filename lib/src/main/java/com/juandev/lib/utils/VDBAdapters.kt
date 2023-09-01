@@ -10,48 +10,48 @@ import androidx.recyclerview.widget.RecyclerView
 import com.juandev.lib.adapter.VDBItemsAdapter
 
 @BindingAdapter("items")
-fun <T> AdapterView<*>.setItems(items: List<T>) {
+fun <T> AdapterView<*>.setItems(items: List<T>?) {
     val adapter = this.adapter as? VDBItemsAdapter<T>
     adapter?.run {
-        fill(items)
+        fill(items ?: emptyList())
     }
 }
 
 @BindingAdapter("items")
-fun <T> ListView.setItems(items: List<T>) {
+fun <T> ListView.setItems(items: List<T>?) {
     val adapter = this.adapter as? VDBItemsAdapter<T>
     adapter?.run {
-        fill(items)
+        fill(items ?: emptyList())
     }
 }
 
 @BindingAdapter("items")
-fun <T> AutoCompleteTextView.setItems(items: List<T>) {
+fun <T> AutoCompleteTextView.setItems(items: List<T>?) {
     val adapter = this.adapter as? VDBItemsAdapter<T>
     adapter?.run {
-        fill(items)
+        fill(items ?: emptyList())
     }
 }
 
 @BindingAdapter("items")
-fun <T> AppCompatSpinner.setItems(items: List<T>) {
+fun <T> AppCompatSpinner.setItems(items: List<T>?) {
     val adapter = this.adapter as? VDBItemsAdapter<T>
     adapter?.run {
-        fill(items)
+        fill(items ?: emptyList())
     }
 }
 
 @BindingAdapter("items")
-fun <T> RecyclerView.setItems(items: List<T>) {
+fun <T> RecyclerView.setItems(items: List<T>?) {
     val adapter = this.adapter as? VDBItemsAdapter<T>
     adapter?.run {
-        fill(items)
+        fill(items ?: emptyList())
     }
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 @BindingAdapter("value", "holder")
-fun <T> AppCompatTextView.setValue(value: T, holder: String?) {
+fun <T> AppCompatTextView.setValue(value: T?, holder: String?) {
     text = value?.toString() ?: holder ?: ""
 }
