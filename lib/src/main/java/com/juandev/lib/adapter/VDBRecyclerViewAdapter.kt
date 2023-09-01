@@ -1,8 +1,8 @@
 package com.juandev.lib.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Adapter
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -23,6 +23,7 @@ open class VDBRecyclerViewAdapter<VM : Any, VDB : ViewDataBinding>(
     private val holders = mutableMapOf<Int, ViewHolder>()
 
     var items = listOf<VM>()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()
